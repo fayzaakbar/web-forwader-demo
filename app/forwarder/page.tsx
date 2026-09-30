@@ -4,11 +4,11 @@ import { DashboardHeader } from "@/components/DashboardHeader";
 import { requireForwarderMemberships } from "@/lib/auth";
 import { demoForwarders } from "@/lib/data";
 import { getLocale, messages } from "@/lib/i18n";
-import { isDemoRolePreview } from "@/lib/workspaces";
+import { isDemoForwarderPreview } from "@/lib/workspaces";
 import type { CompanyRecord } from "@/types/database";
 
 export default async function ForwarderDashboard() {
-  const demo = isDemoRolePreview();
+  const demo = isDemoForwarderPreview();
   const locale = await getLocale();
   const copy = messages[locale];
   const demoCompany = demoForwarders.find((company) => company.slug === "harborlight-freight-demo") ?? demoForwarders[0];

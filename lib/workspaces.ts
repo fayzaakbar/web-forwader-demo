@@ -7,3 +7,7 @@ export function areWorkspacesEnabled() {
 export function isDemoRolePreview() {
   return process.env.NODE_ENV !== "production" && !areWorkspacesEnabled();
 }
+
+export function isDemoForwarderPreview() {
+  return !areWorkspacesEnabled();
+}

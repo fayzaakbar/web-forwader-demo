@@ -12,6 +12,8 @@ npm run dev
 
 Without Supabase credentials the app uses a small, clearly illustrative in-memory dataset so the directory and profile UI can be explored. Workspace sign-in is disabled by default for presentations. After Supabase Auth and role records are configured, set `NEXT_PUBLIC_WORKSPACES_ENABLED=true` together with both Supabase public values in `.env.local` to enable admin and forwarder login. Set `NEXT_PUBLIC_SITE_URL` to the deployed origin and `NEXT_PUBLIC_PARTNERSHIPS_EMAIL` to enable the optional listing contact button.
 
+When Supabase workspaces are not configured, `/forwarder/login` opens a read-only demo workspace in both development and production. Demo profile edits and registrations are not persisted. The admin workspace remains unavailable in production until Supabase is configured.
+
 ## Deploy a public demo to Vercel
 
 1. Import this project into Vercel; the Next.js framework and build command are detected automatically (`npm run build`).

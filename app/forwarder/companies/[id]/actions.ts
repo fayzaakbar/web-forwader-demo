@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { requireForwarderCompany } from "@/lib/auth";
 import { getSafeHttpUrl } from "@/lib/forwarder-utils";
 import { messages, type Locale } from "@/lib/messages";
-import { areWorkspacesEnabled, isDemoRolePreview } from "@/lib/workspaces";
+import { areWorkspacesEnabled, isDemoForwarderPreview } from "@/lib/workspaces";
 import type { CompanyRecord } from "@/types/database";
 
 export type EditorActionState = { error: string; message: string };
@@ -35,7 +35,7 @@ function isUuid(value: string) {
 }
 
 async function getEditableSession(companyId: string, formData: FormData) {
-  if (!isUuid(companyId) || isDemoRolePreview() || !areWorkspacesEnabled()) return null;
+  if (!isUuid(companyId) || isDemoForwarderPreview() || !areWorkspacesEnabled()) return null;
   return requireForwarderCompany(companyId);
 }
 
@@ -55,7 +55,7 @@ export async function updateForwarderProfile(formData: FormData) {
 export async function saveCompanyDetails(_state: EditorActionState, formData: FormData): Promise<EditorActionState> {
   const copy = messages[getLocale(formData)];
   const companyId = companyIdFrom(formData);
-  if (isDemoRolePreview()) return { error: "", message: copy.changesNotSaved };
+  if (isDemoForwarderPreview()) return { error: "", message: copy.changesNotSaved };
   const session = await getEditableSession(companyId, formData);
   if (!session) return { error: copy.saveError, message: "" };
 
@@ -90,7 +90,7 @@ export async function saveCompanyDetails(_state: EditorActionState, formData: Fo
 export async function saveServicesAndAreas(_state: EditorActionState, formData: FormData): Promise<EditorActionState> {
   const copy = messages[getLocale(formData)];
   const companyId = companyIdFrom(formData);
-  if (isDemoRolePreview()) return { error: "", message: copy.changesNotSaved };
+  if (isDemoForwarderPreview()) return { error: "", message: copy.changesNotSaved };
   const session = await getEditableSession(companyId, formData);
   if (!session) return { error: copy.saveError, message: "" };
 
@@ -156,7 +156,7 @@ export async function saveServicesAndAreas(_state: EditorActionState, formData: 
 export async function saveContacts(_state: EditorActionState, formData: FormData): Promise<EditorActionState> {
   const copy = messages[getLocale(formData)];
   const companyId = companyIdFrom(formData);
-  if (isDemoRolePreview()) return { error: "", message: copy.changesNotSaved };
+  if (isDemoForwarderPreview()) return { error: "", message: copy.changesNotSaved };
   const session = await getEditableSession(companyId, formData);
   if (!session) return { error: copy.saveError, message: "" };
 
@@ -202,7 +202,7 @@ export async function saveContacts(_state: EditorActionState, formData: FormData
 export async function saveGallery(_state: EditorActionState, formData: FormData): Promise<EditorActionState> {
   const copy = messages[getLocale(formData)];
   const companyId = companyIdFrom(formData);
-  if (isDemoRolePreview()) return { error: "", message: copy.changesNotSaved };
+  if (isDemoForwarderPreview()) return { error: "", message: copy.changesNotSaved };
   const session = await getEditableSession(companyId, formData);
   if (!session) return { error: copy.saveError, message: "" };
 

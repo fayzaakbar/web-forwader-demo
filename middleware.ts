@@ -1,10 +1,13 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import type { Database } from "@/types/database";
-import { areWorkspacesEnabled, isDemoRolePreview } from "@/lib/workspaces";
+import { areWorkspacesEnabled, isDemoForwarderPreview, isDemoRolePreview } from "@/lib/workspaces";
 
 export async function middleware(request: NextRequest) {
   if (isDemoRolePreview()) return NextResponse.next({ request });
+  if (isDemoForwarderPreview() && request.nextUrl.pathname.startsWith("/forwarder")) {
+    return NextResponse.next({ request });
+  }
   if (!areWorkspacesEnabled()) {
     if (["/login", "/admin/login", "/forwarder/login", "/forwarder/register"].includes(request.nextUrl.pathname)) {
       return NextResponse.next({ request });

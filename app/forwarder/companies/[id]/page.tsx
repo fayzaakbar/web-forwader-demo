@@ -5,14 +5,14 @@ import { ForwarderProfileEditor } from "@/components/ForwarderProfileEditor";
 import { requireForwarderCompany } from "@/lib/auth";
 import { demoForwarders, getAllServiceCategories } from "@/lib/data";
 import { getLocale, messages } from "@/lib/i18n";
-import { isDemoRolePreview } from "@/lib/workspaces";
+import { isDemoForwarderPreview } from "@/lib/workspaces";
 import type { CompanyContactRecord, CompanyGalleryRecord, CompanyMemberRole, CompanyRecord, CompanyServiceRecord, Forwarder, ServiceAreaRecord, ServiceCategoryRecord } from "@/types/database";
 
 type EditorProps = { params: Promise<{ id: string }> };
 
 export default async function ForwarderCompanyEditor({ params }: EditorProps) {
   const { id } = await params;
-  const demo = isDemoRolePreview();
+  const demo = isDemoForwarderPreview();
   const locale = await getLocale();
   const copy = messages[locale];
   let company: CompanyRecord;

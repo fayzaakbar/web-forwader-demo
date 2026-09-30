@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getSafeHttpUrl } from "@/lib/forwarder-utils";
 import { messages, type Locale } from "@/lib/messages";
-import { areWorkspacesEnabled, isDemoRolePreview } from "@/lib/workspaces";
+import { areWorkspacesEnabled, isDemoForwarderPreview } from "@/lib/workspaces";
 import type { Database } from "@/types/database";
 
 type RegistrationState = { error: string; message: string };
@@ -13,7 +13,7 @@ type RegistrationState = { error: string; message: string };
 export async function registerForwarderAction(_previousState: RegistrationState, formData: FormData): Promise<RegistrationState> {
   const locale: Locale = formData.get("locale") === "en" ? "en" : "id";
   const copy = messages[locale];
-  if (isDemoRolePreview()) return { error: "", message: copy.registrationSent };
+  if (isDemoForwarderPreview()) return { error: "", message: copy.registrationSent };
   if (!areWorkspacesEnabled()) return { error: copy.accessDisabled, message: "" };
 
   const name = String(formData.get("contact_name") ?? "").trim();
